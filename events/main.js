@@ -38,7 +38,7 @@ previous.addEventListener('click', () => {
     updateImage()
 })
 
-function updateImage() {
+const updateImage = () => {
     mainImg.style.opacity = 0;
     setTimeout(() => {
         mainImg.src = images[index];
