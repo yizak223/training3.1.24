@@ -31,7 +31,7 @@ button:hover {
 }
 
 table {
-    width: 300px;
+    
     border-collapse: collapse;
 }
 
@@ -42,5 +42,11 @@ table, td {
 td {
     padding: 8px;
     text-align: left;
+   
 }
-
+.dltBtn{
+    background-color: red;
+}
+#rstBtn{
+    background-color: blue;
+}

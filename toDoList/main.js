@@ -16,18 +16,57 @@ addBtn.addEventListener('click', () => {
     console.log({obj});
     arrayObj.push(newItem);
     localStorage.setItem('array', JSON.stringify(arrayObj))
-    list.innerHTML += `<tr>
-                          <td>${title.value}</td>
-                          <td>${dueDate.value}</td>
-                      </tr>`
-
+    render()
 })
-if (arrayObj.length > 0) {
+const render = () => {
+if (arrayObj.length > 0) { 
+    list.innerHTML = ''
     arrayObj.forEach(element => {
+      
          list.innerHTML +=`<tr>
+                        <td><input type='checkBox'></input></td>
                         <td>${element.title}</td>
-                        <td>${element.date}</td>
+                        <td class='dateElement'>${element.date}</td>
+                        <td>
+                            <button class='dltBtn'><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        </td>
                     </tr>`
     });
-}
-// localStorage.clear()
+    list.innerHTML += `<button id='rstBtn'>reset</button></td>`
+    const rstBtn = document.querySelector('#rstBtn')
+    rstBtn.addEventListener('click', () => {
+        localStorage.clear()
+        list.innerHTML = ''
+        arrayObj = []
+    })
+
+    const dltBtn = document.querySelectorAll('.dltBtn');
+    dltBtn.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = btn.parentNode.parentNode.rowIndex
+            arrayObj.splice(index, 1)
+            localStorage.setItem('array', JSON.stringify(arrayObj))
+            list.innerHTML = ''
+            render()
+        })
+    })
+
+    const dateElement = document.querySelectorAll('.dateElement');
+    dateElement.forEach(date=>{
+        date.addEventListener('click', () => {
+            const today = new Date()
+            console.log(today.getYear(),date.getYear());
+         switch(date.getYear()<today.getYear()){
+             case true:
+                 date.style.color ='red'
+                 break;
+             case false:
+                 date.style.color = 'green'
+                 break;
+ 
+        }
+    })
+})}}
+render()
+
+
