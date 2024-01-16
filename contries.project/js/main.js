@@ -6,6 +6,8 @@ const fettchCountries=(countryName='Israel')=> {
     .then(data=>{
         console.log(data);
         mainDiv.innerHTML = `
+        <input type="text" id="searchCountry">
+        <button id='btnSrch'>Search</button>
         <h1>${data[0].name.common}</h1>
         <div class="country-info">
             <img src="${data[0].flags.png}" alt="Flag">
@@ -15,6 +17,11 @@ const fettchCountries=(countryName='Israel')=> {
         <div class="map-container">
             <iframe src="https://maps.google.com/maps?q=${data[0].latlng}&z=8&ie=UTF8&iwloc=&output=embed" target="_parent"></iframe>
         </div>`
+        const searchCountry=document.querySelector('#searchCountry');
+        const btnSrch=document.querySelector('#btnSrch');
+        btnSrch.addEventListener('click', ()=>{
+            fettchCountries(searchCountry.value);
+        })
     })
     .catch(error=>{console.log(error)})
 }
@@ -26,7 +33,6 @@ rndBtn.addEventListener('click', ()=>{
     fetch(`https://restcountries.com/v3.1/all`)
     .then(res=>{return res.json()})
     .then(data=>{
-        console.log(data);
         fettchCountries(data[rndNum].name.common);
     })
     .catch(error=>{console.log(error)})
